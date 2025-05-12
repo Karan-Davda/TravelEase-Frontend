@@ -1,0 +1,19 @@
+
+/* All styles moved to index.css and component-specific styles */
+
+/* Login page background gradient */
+.login-gradient-bg {
+  background: linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%);
+}
+
+/* For browsers that don't support objectFit */
+.background-travel {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+}

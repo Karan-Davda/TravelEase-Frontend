@@ -144,7 +144,7 @@ const Signup = ({ role = 'traveler' }: SignupProps) => {
         "w-full lg:w-3/5 flex items-center justify-center p-6 md:p-12",
         "bg-background dark:bg-gray-900"
       )}>
-        <div className="w-full max-w-3xl">
+        <div className="w-full max-w-3xl">  
           <h1 className="text-2xl font-display font-bold text-center mb-6">
             {getPageTitle()}
           </h1>

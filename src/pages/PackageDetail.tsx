@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -292,11 +291,6 @@ const PackageDetail = () => {
               </div>
               
               <div className="space-y-4">
-                <Link to={`/package-edit/${packageData.PackageID}`}>
-                  <Button className="w-full" variant="outline">
-                    Edit Package
-                  </Button>
-                </Link>
                 {packageData.Status === 'Active' ? (
                   <Button className="w-full bg-amber-500 hover:bg-amber-600" variant="destructive">
                     Deactivate Package

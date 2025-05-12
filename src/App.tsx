@@ -11,13 +11,16 @@ import Login from './pages/authentication/Login';
 import Register from './pages/Signup';
 import TravelAgencyDashboard from './pages/TravelAgencyDashboard';
 import PackageCreation from './pages/PackageCreation';
+import PackageEdit from './pages/PackageEdit'; // Using dedicated component for edit
 import CustomTripBuilder from './pages/CustomTripBuilder';
 import AgencyPackages from './pages/Packages'; // Using existing Packages as placeholder
-import PackageEdit from './pages/PackageCreation'; // Using PackageCreation as a placeholder for edit
 import ProtectedRoute from './components/guards/RouteGuard';
 
 // Import the new PackageDetail page
 import PackageDetail from './pages/PackageDetail';
+
+// Import authentication Signup page
+import AuthSignup from './pages/authentication/Signup';
 
 function App() {
   return (
@@ -31,6 +34,11 @@ function App() {
         <Route path="/packages" element={<Packages />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        
+        {/* Authentication routes */}
+        <Route path="/signup" element={<AuthSignup role="traveler" />} />
+        <Route path="/signup/partner" element={<AuthSignup role="partner" />} />
+        <Route path="/signup/verify-otp" element={<AuthSignup role="verify-otp" />} />
         
         {/* Protected Routes */}
         <Route path="/agency-dashboard" element={

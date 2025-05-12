@@ -67,6 +67,14 @@ const BasicDetailsStep = ({ data, updateData, onNext }: BasicDetailsStepProps) =
     }
   }, []);
   
+  // Update image URL directly when changed
+  useEffect(() => {
+    if (imageTabValue === 'url' && imageUrl.trim()) {
+      updateData({ packageImage: imageUrl });
+      setImagePreview(imageUrl);
+    }
+  }, [imageUrl, imageTabValue]);
+  
   const handleDateSelect = (field: 'startDate' | 'endDate', date: Date | undefined) => {
     updateData({ [field]: date });
   };
@@ -122,36 +130,6 @@ const BasicDetailsStep = ({ data, updateData, onNext }: BasicDetailsStepProps) =
 
   const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageUrl(e.target.value);
-  };
-
-  const handleApplyImageUrl = () => {
-    if (!imageUrl.trim()) {
-      toast({
-        title: "URL required",
-        description: "Please enter an image URL.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Test if URL is valid
-    const isValidUrl = /^(https?:\/\/.*\.(?:png|jpg|jpeg|webp|gif|svg))$/i.test(imageUrl);
-    if (!isValidUrl) {
-      toast({
-        title: "Invalid image URL",
-        description: "Please enter a valid image URL (png, jpg, jpeg, webp).",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setImagePreview(imageUrl);
-    updateData({ packageImage: imageUrl });
-    
-    toast({
-      title: "Image URL added",
-      description: "The image URL has been added to your package.",
-    });
   };
 
   const handleRemoveImage = () => {
@@ -236,7 +214,6 @@ const BasicDetailsStep = ({ data, updateData, onNext }: BasicDetailsStepProps) =
   
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* ... keep existing code (grid layout for package name and max occupancy) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Package Name */}
         <div className="space-y-2">
@@ -274,7 +251,6 @@ const BasicDetailsStep = ({ data, updateData, onNext }: BasicDetailsStepProps) =
         />
       </div>
       
-      {/* ... keep existing code (city selection and tour guide option) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* From City - with search */}
         <div className="space-y-2">
@@ -331,7 +307,6 @@ const BasicDetailsStep = ({ data, updateData, onNext }: BasicDetailsStepProps) =
         </div>
       </div>
       
-      {/* ... keep existing code (destination cities management) */}
       <div className="space-y-4">
         <Label htmlFor="destinationCity">Destination Cities*</Label>
         
@@ -410,7 +385,6 @@ const BasicDetailsStep = ({ data, updateData, onNext }: BasicDetailsStepProps) =
         )}
       </div>
       
-      {/* ... keep existing code (date range selection) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Start Date */}
         <div className="space-y-2">
@@ -570,21 +544,12 @@ const BasicDetailsStep = ({ data, updateData, onNext }: BasicDetailsStepProps) =
                       Must be a direct link to a JPG, PNG, or WEBP image
                     </p>
                   </div>
-                  <div className="flex space-x-2">
-                    <Input
-                      value={imageUrl}
-                      onChange={handleImageUrlChange}
-                      placeholder="https://example.com/image.jpg"
-                      className="flex-1"
-                    />
-                    <Button 
-                      type="button" 
-                      onClick={handleApplyImageUrl}
-                      disabled={!imageUrl.trim()}
-                    >
-                      Apply
-                    </Button>
-                  </div>
+                  <Input
+                    value={imageUrl}
+                    onChange={handleImageUrlChange}
+                    placeholder="https://example.com/image.jpg"
+                    className="w-full"
+                  />
                 </div>
               )}
             </div>

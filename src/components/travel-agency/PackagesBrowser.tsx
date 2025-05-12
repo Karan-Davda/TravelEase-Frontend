@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { ArrowRight, Plus } from 'lucide-react';
+import { ArrowRight, Plus, Eye } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import TourCard from '@/components/sections/TourCard';
 import { Package } from '@/types/packageTypes';
@@ -109,6 +109,7 @@ export const PackagesBrowser = ({ packages, isLoading }: PackagesBrowserProps) =
               reviewCount={0} // Default since it's not in the API
               maxGroupSize={pkg.RegistrationCap}
               hasTourGuide={pkg.IsTourGuide}
+              onViewClick={() => window.location.href = `/packages/${pkg.PackageID}`}
             />
           ))
         )}

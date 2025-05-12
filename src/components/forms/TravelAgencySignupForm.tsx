@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Eye, EyeOff, Upload } from 'lucide-react';
@@ -51,7 +50,7 @@ const TravelAgencySignupForm = ({ onBack }: TravelAgencySignupFormProps) => {
   const [taxDocument, setTaxDocument] = useState<File | null>(null);
   const [licenseDocument, setLicenseDocument] = useState<File | null>(null);
   
-  // Form validation
+  // Form validation - modified to check only the current step
   const isPersonalFormValid = () => {
     return firstName && lastName && email && mobile && password && confirmPassword && dateOfBirth && address && password === confirmPassword;
   };
@@ -62,6 +61,20 @@ const TravelAgencySignupForm = ({ onBack }: TravelAgencySignupFormProps) => {
   
   const isContactFormValid = () => {
     return agencyEmail && agencyPhone;
+  };
+  
+  // Check if current step is valid
+  const isCurrentStepValid = () => {
+    switch (currentStep) {
+      case 'personal':
+        return isPersonalFormValid();
+      case 'agency':
+        return isAgencyFormValid();
+      case 'contact':
+        return isContactFormValid();
+      default:
+        return false;
+    }
   };
   
   const handleNext = () => {
@@ -628,10 +641,7 @@ const TravelAgencySignupForm = ({ onBack }: TravelAgencySignupFormProps) => {
           type="button"
           className={`${currentStep === 'personal' ? 'w-full' : ''} bg-primary text-white`}
           onClick={handleNext}
-          disabled={isLoading || 
-            (currentStep === 'personal' && !isPersonalFormValid()) ||
-            (currentStep === 'agency' && !isAgencyFormValid()) ||
-            (currentStep === 'contact' && !isContactFormValid())}
+          disabled={isLoading || !isCurrentStepValid()}
         >
           {isLoading && currentStep === 'contact' ? "Creating account..." : 
             currentStep === 'contact' ? "Sign Up" : "Continue"}
